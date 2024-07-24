@@ -2,14 +2,16 @@ import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { postUpdated } from './postsSlice'
+import { selectPostById } from './postsSlice'
+
 
 // *EDIT POST το ηδη υπαρχων post, γιαυτο θα πρεπει να εμφανιζει τα ηδη υπαρχων title, content
 // *και μετα αναλογα το postId και το post.id θα εμφανιζει δεδομενα ενους id
 export const EditPostForm = ({match}) => {
     const {postId} = match.params
     //βρισκει το key posts στο store, και μετα οπου το id του initialState === postId απο match.params (:postId)
-    const post = useSelector(state => state.posts.find(post => post.id === postId))
-    console.log("edit post form  ", post)
+    //state.posts βρισκει slice name = posts -> state.posts.posts βρισκει μετα τον πινακα
+    const post = useSelector(state => selectPostById(state, postId))
     const [title, setTitle] = useState(post.title)
     const [content, setContent] = useState(post.content)
 

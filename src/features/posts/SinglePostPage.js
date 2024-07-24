@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { selectPostById } from './postsSlice'
 
 export const SinglePostPage = ({match}) => {
     const {postId} = match.params
     //match.params = :postId απο το Route στο App.js
     //αν το post.id(id=2) ειναι ισο με το postId (posts/2), 
-    const post = useSelector(state => state.posts.find(post => post.id === postId))
+    const post = useSelector(state   => selectPostById(state, postId))
     console.log("Single post page ", post)
     //το singlePostPage λειτουργει απο το PostsLink, μεσω ενος Link οπου παιρνει το post.id
     if (!post){
